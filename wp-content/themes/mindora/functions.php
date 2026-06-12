@@ -1049,3 +1049,12 @@ function noriks_term_group( $group ) {
     return $groups[ $group ] ?? array();
 }
 
+
+// BORIS 2026-06-12: WooCommerce produkt strani so polomljene (Veinora template) -
+// preusmeri vse single-product oglede na homepage buy-box sekcijo
+add_action( "template_redirect", function () {
+    if ( function_exists( "is_product" ) && is_product() ) {
+        wp_redirect( home_url( "/#shopify-section-template--26202133135654__featured_product_GUicJG" ), 302 );
+        exit;
+    }
+} );

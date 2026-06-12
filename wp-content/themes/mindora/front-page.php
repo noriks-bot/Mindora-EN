@@ -204,8 +204,19 @@ $wc_handler .= '<script>(function(){
     }).then(function(){ window.location.href = CART; })
       .catch(function(){ window.location.href = "/?add-to-cart=" + PID; });
   }
+  var BUYBOX = "shopify-section-template--26202133135654__featured_product_GUicJG";
+  function showBuyBox(e){
+    e.preventDefault(); e.stopPropagation();
+    var el = document.getElementById(BUYBOX);
+    if (el) { el.scrollIntoView({behavior:"smooth",block:"start"}); }
+  }
   function bindLinks(){
-    document.querySelectorAll("a[href*=\'/products/\'],a[href*=\'/collections/\'],a[href*=\'/cart\']").forEach(function(a){
+    document.querySelectorAll("a[href*=\'/products/\'],a[href*=\'/collections/\']").forEach(function(a){
+      if (a.dataset.wcLinkBound) return;
+      a.dataset.wcLinkBound = "1";
+      a.addEventListener("click", showBuyBox, true);
+    });
+    document.querySelectorAll("a[href*=\'/cart\']").forEach(function(a){
       if (a.dataset.wcLinkBound) return;
       a.dataset.wcLinkBound = "1";
       a.addEventListener("click", go, true);
